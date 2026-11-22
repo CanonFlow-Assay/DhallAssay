@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "assay": "DhallAssay",
+  "product": "dhall",
+  "profile": "dhall-standalone",
+  "sourceExtensions": [
+    ".dhall"
+  ],
+  "nativeFiles": [],
+  "tools": [
+    {
+      "name": "dhall",
+      "version": "1.42.2",
+      "versionArgs": [
+        "version"
+      ],
+      "versionPattern": "^([0-9.]+)\\s*$"
+    }
+  ],
+  "rules": [
+    {
+      "id": "DH001",
+      "severity": "blocking",
+      "title": "Dhall could not parse the selected expression.",
+      "predicate": "The pinned CLI immediate-dependency parser exits 1 with its Invalid input diagnostic.",
+      "source": "https://github.com/dhall-lang/dhall-haskell/blob/1.42.2/dhall/src/Dhall/Main.hs"
+    },
+    {
+      "id": "DH002",
+      "severity": "blocking",
+      "title": "Closed expressions cannot contain imports.",
+      "predicate": "The pinned CLI immediate-dependency branch enumerates at least one import AST node, including missing or a fallback branch.",
+      "source": "https://github.com/dhall-lang/dhall-haskell/blob/1.42.2/dhall/src/Dhall/Main.hs"
+    },
+    {
+      "id": "DH003",
+      "severity": "blocking",
+      "title": "The closed Dhall expression did not type-check and normalize.",
+      "predicate": "The pinned CLI normalize branch issues a type-check diagnostic after the import-free parse stage.",
+      "source": "https://github.com/dhall-lang/dhall-haskell/blob/1.42.2/dhall/src/Dhall/Main.hs"
+    },
+    {
+      "id": "DH004",
+      "severity": "advisory",
+      "title": "Dhall's formatter would change the source.",
+      "predicate": "The native non-transitive format --check command exits 1 on the parsed and typed expression. The diagnostic identifies the corresponding check command.",
+      "source": "https://github.com/dhall-lang/dhall-haskell/blob/1.42.2/dhall/src/Dhall/Main.hs"
+    },
+    {
+      "id": "DH005",
+      "severity": "advisory",
+      "title": "Dhall's linter would change the source.",
+      "predicate": "The native non-transitive lint --check command exits 1 on the parsed and typed expression. The diagnostic identifies the corresponding check command.",
+      "source": "https://github.com/dhall-lang/dhall-haskell/blob/1.42.2/dhall/src/Dhall/Main.hs"
+    }
+  ]
+}

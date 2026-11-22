@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "profile": "dhall-standalone",
+  "sources": [
+    "service.dhall"
+  ],
+  "testInputs": [
+    "test_sample.py"
+  ],
+  "requiredCommands": [
+    [
+      "python3",
+      "test_sample.py"
+    ]
+  ]
+}

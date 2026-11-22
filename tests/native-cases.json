@@ -1,0 +1,60 @@
+[
+  {
+    "name": "URL string is ordinary data",
+    "source": "\"https://example.invalid\"\n",
+    "exit": 2
+  },
+  {
+    "name": "malformed record",
+    "source": "{ workers = }\n",
+    "exit": 1,
+    "rule": "DH001"
+  },
+  {
+    "name": "remote import observed before any normalization",
+    "source": "https://example.invalid/fixture\n",
+    "exit": 1,
+    "rule": "DH002",
+    "lastCheck": "--immediate-dependencies"
+  },
+  {
+    "name": "local import observed without opening it",
+    "source": "./fixture.dhall\n",
+    "exit": 1,
+    "rule": "DH002",
+    "lastCheck": "--immediate-dependencies"
+  },
+  {
+    "name": "environment import observed without reading it",
+    "source": "env:ASSAY_FIXTURE as Text\n",
+    "exit": 1,
+    "rule": "DH002",
+    "lastCheck": "--immediate-dependencies"
+  },
+  {
+    "name": "fallback branch is still a dependency",
+    "source": "missing ? 1\n",
+    "exit": 1,
+    "rule": "DH002",
+    "lastCheck": "--immediate-dependencies"
+  },
+  {
+    "name": "wrong semantic type",
+    "source": "1 : Text\n",
+    "exit": 1,
+    "rule": "DH003",
+    "lastCheck": "normalize"
+  },
+  {
+    "name": "unformatted but typed",
+    "source": "{workers=2}\n",
+    "exit": 2,
+    "rule": "DH004"
+  },
+  {
+    "name": "unused binding",
+    "source": "let unused = 1\n\nin  2\n",
+    "exit": 2,
+    "rule": "DH005"
+  }
+]
